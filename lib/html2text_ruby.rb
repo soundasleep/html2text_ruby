@@ -1,5 +1,5 @@
 class Html2Text
-  def self.hi
-    puts "Hello world!"
+  def self.convert(html)
+    html
   end
 end

@@ -56,7 +56,10 @@ text = Html2Text.convert(html)
 
 ## Tests
 
-TODO Run rspec
+```
+bundle install
+rspec
+```
 
 ## License
 
