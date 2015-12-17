@@ -10,7 +10,7 @@ describe Html2Text do
       context "#{filename}" do
         let(:html) { File.read(filename) }
         let(:text_file) { filename.sub(".html", ".txt") }
-        let(:expected) { File.read(text_file) }
+        let(:expected) { Html2Text.fix_newlines(File.read(text_file)) }
 
         it "converts to text" do
           expect(text).to eq(expected)

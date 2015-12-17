@@ -3,7 +3,7 @@ html2text_ruby
 
 `html2text_ruby` is a port of the [html2text PHP component](https://github.com/soundasleep/html2text) into a Ruby gem.
 
-`html2text_ruby` is a very simple script that uses Ruby's DOM methods to load from HTML, and then iterates over the resulting DOM to correctly output plain text. For example:
+`html2text_ruby` is a very simple script that uses Ruby's DOM methods to load HTML from a string, and then iterates over the resulting DOM to correctly output plain text. For example:
 
 ```html
 <html>
@@ -55,6 +55,8 @@ text = Html2Text.convert(html)
 ```
 
 ## Tests
+
+See all of the test cases defined in [spec/examples/](spec/examples/). These can be run with:
 
 ```
 bundle install
