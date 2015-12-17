@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    html2text_ruby (0.1.1)
+    html2text (0.1.2)
       nokogiri (~> 1.6)
 
 GEM
@@ -34,7 +34,7 @@ PLATFORMS
 
 DEPENDENCIES
   colorize
-  html2text_ruby!
+  html2text!
   rake
   rspec
   rspec-collection_matchers
