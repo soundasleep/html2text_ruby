@@ -1,8 +1,17 @@
+PATH
+  remote: .
+  specs:
+    html2text_ruby (0.1.0)
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
     colorize (0.7.7)
     diff-lcs (1.2.5)
+    mini_portile2 (2.0.0)
+    nokogiri (1.6.7)
+      mini_portile2 (~> 2.0.0.rc2)
     rake (10.4.2)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
@@ -25,6 +34,7 @@ PLATFORMS
 
 DEPENDENCIES
   colorize
+  html2text_ruby!
   rake
   rspec
   rspec-collection_matchers

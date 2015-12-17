@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir["lib/**/*", "MIT-LICENSE", "README.md"]
   s.test_files = Dir["spec/**/*"]
+
+  s.add_dependency "nokogiri"
 end
