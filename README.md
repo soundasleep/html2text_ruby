@@ -1,7 +1,7 @@
-html2text_ruby [![Build Status](https://travis-ci.org/soundasleep/html2text_ruby.svg?branch=master)](https://travis-ci.org/soundasleep/html2text_ruby)
+html2text [![Build Status](https://travis-ci.org/soundasleep/html2text_ruby.svg?branch=master)](https://travis-ci.org/soundasleep/html2text_ruby)
 ==============
 
-`html2text_ruby` is a very simple script that uses Ruby's DOM methods to load HTML from a string, and then iterates over the resulting DOM to correctly output plain text. For example:
+`html2text` is a very simple script that uses Ruby's DOM methods to load HTML from a string, and then iterates over the resulting DOM to correctly output plain text. For example:
 
 ```html
 <html>
@@ -47,7 +47,7 @@ See the [original blog post](http://journals.jevon.org/users/jevon-phd/entry/198
 TODO Install the gem, then you can:
 
 ```ruby
-require 'html2text_ruby'
+require 'html2text'
 
 text = Html2Text.convert(html)
 ```

@@ -1,7 +1,7 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "html2text_ruby/version"
+require "html2text/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Html2Text::VERSION
   s.authors     = ["Jevon Wright"]
   s.email       = ["jevon@powershop.co.nz"]
-  s.homepage    = "https://github.com/soundasleep/html2text-ruby"
+  s.homepage    = "https://github.com/soundasleep/html2text_ruby"
   s.summary     = "Convert HTML into plain text."
   s.description = "A Ruby component to convert HTML into a plain text format."
   s.license     = "MIT"
