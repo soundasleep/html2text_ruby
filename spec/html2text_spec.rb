@@ -20,4 +20,18 @@ describe Html2Text do
       end
     end
   end
+
+  describe "#remove_leading_and_trailing_whitespace" do
+    let(:subject) { Html2Text.new(nil).remove_leading_and_trailing_whitespace(input) }
+
+    context "an empty string" do
+      let(:input) { "" }
+      it { is_expected.to eq("") }
+    end
+
+    context "many new lines" do
+      let(:input) { "hello\n  world \n yes" }
+      it { is_expected.to eq("hello\nworld\nyes") }
+    end
+  end
 end
