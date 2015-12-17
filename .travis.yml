@@ -1,3 +1,11 @@
 language: ruby
 rvm:
-  - 2.2.0
+- 2.2.0
+deploy:
+  provider: rubygems
+  api_key:
+    secure: nMU94SMZxC7NqnXcW3OO6e2m8MbiYg5QvM0j8HNmv78FS0vmjQBCmH/jY0SZIp6Fvn3gLMpJ9DF/EnASXQFJ/j9QpdqlI6L4/jC9B/1HkhPkC+mQ6lmZh2OUnJk82lKW7/iWrnNf3cFMBX/m3ygFItADSB5241klHRvSYWQWlHpRlC5qHiQsZ6UO1WWe4t0erR6iAa80z8GU8hiU/g2HbLHz51p7Jyl0qvWgEPQ8hauyd/3U0Q65QAk3jNF4A9ug5/DPpau4FvEfahA6Q7uZQPKILHjD1iOzaJndHHieGoqpLBadGLs5GDb50gKlKAmQWtJyXkE3do7RbV7fBCzxqwo8eZieZXyzLIg3iP8f5AgsFT6NSYJYUggO1DEh9JoTSv2+IZWVLrgyrNivONhM0rxKkeapoU0HqK+7056iSYlh+8Q7lJyuOlf63nhwtTa+lgziqKwFsEVDDcGsVJ5gBcF6xqQEq92AHoio8yU1BalMLsSw37Fh3BUqBQSIrzqChIsCHqGiargqRKPXZgDXZSA50GjbEI0YaXSyQ0aFtEBGpXuc1w34BdHs85dPSW4AGDaXhu6GwIpv/xp8m5ThemyVlvUgAhX4GsfPM3UI3aHzkMVPshRPNzz1QtxlpsagWTh6/UjPElMV5cxZNL7iJOyHZ2c+0nJK2eBnJyHI23M=
+  gem: html2text_ruby
+  on:
+    tags: true
+    repo: soundasleep/html2text_ruby
