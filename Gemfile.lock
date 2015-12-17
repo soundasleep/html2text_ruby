@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    html2text_ruby (0.1.0)
-      nokogiri
+    html2text_ruby (0.1.1)
+      nokogiri (~> 1.6)
 
 GEM
   remote: https://rubygems.org/

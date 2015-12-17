@@ -18,4 +18,9 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "nokogiri", "~> 1.6"
+
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec-collection_matchers"
+  s.add_development_dependency "colorize"
+  s.add_development_dependency "rake"
 end
