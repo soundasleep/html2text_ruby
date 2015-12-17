@@ -5,7 +5,7 @@ require "html2text/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "html2text_ruby"
+  s.name        = "html2text"
   s.version     = Html2Text::VERSION
   s.authors     = ["Jevon Wright"]
   s.email       = ["jevon@powershop.co.nz"]
