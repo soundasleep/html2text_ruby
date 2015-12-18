@@ -84,7 +84,7 @@ class Html2Text
   def prefix_whitespace(node)
     case node.name.downcase
       when "hr"
-        "------\n"
+        "---------------------------------------------------------------\n"
 
       when "h1", "h2", "h3", "h4", "h5", "h6", "ol", "ul"
         "\n"
