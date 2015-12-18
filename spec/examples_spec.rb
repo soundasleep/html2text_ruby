@@ -12,6 +12,10 @@ describe Html2Text do
         let(:text_file) { filename.sub(".html", ".txt") }
         let(:expected) { Html2Text.fix_newlines(File.read(text_file)) }
 
+        it "has an expected output" do
+          expect(File.exist?(text_file)).to eq(true), "'#{text_file}' did not exist"
+        end
+
         it "converts to text" do
           expect(text).to eq(expected)
         end

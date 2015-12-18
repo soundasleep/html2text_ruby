@@ -19,17 +19,22 @@ class Html2Text
   end
 
   def self.replace_entities(text)
-    text.gsub("&nbsp;", " ")
+    text.gsub("&nbsp;", " ").gsub("\u00a0", " ")
   end
 
   def convert
     output = iterate_over(doc)
     output = remove_leading_and_trailing_whitespace(output)
+    output = remove_unnecessary_empty_lines(output)
     output.strip
   end
 
   def remove_leading_and_trailing_whitespace(text)
     text.gsub(/[ \t]*\n[ \t]*/im, "\n")
+  end
+
+  def remove_unnecessary_empty_lines(text)
+    text.gsub(/\n\n\n*/im, "\n\n")
   end
 
   def trimmed_whitespace(text)
