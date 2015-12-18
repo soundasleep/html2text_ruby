@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    html2text (0.1.2)
+    html2text (0.2.0)
       nokogiri (~> 1.6)
 
 GEM
