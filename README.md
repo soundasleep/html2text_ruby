@@ -44,7 +44,13 @@ See the [original blog post](http://journals.jevon.org/users/jevon-phd/entry/198
 
 ## Installing
 
-TODO Install the gem, then you can:
+Add [the gem](https://rubygems.org/gems/html2text) into your Gemfile and run `bundle install`:
+
+```ruby
+gem 'html2text'
+```
+
+Then you can:
 
 ```ruby
 require 'html2text'
@@ -67,4 +73,5 @@ rspec
 
 ## Other versions
 
-Also see [html2text](https://github.com/soundasleep/html2text), the original PHP implementation.
+1. [html2text](https://github.com/soundasleep/html2text), the original PHP implementation.
+2. [actionmailer-html2text](https://github.com/soundasleep/actionmailer-html2text), automatically generate text parts for HTML emails sent with ActionMailer.
