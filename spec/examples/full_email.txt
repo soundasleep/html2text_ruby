@@ -1,4 +1,4 @@
-[  ](http://localhost/home)  	 16 December 2015
+[  ](http://localhost/home)	16 December 2015
 Account 123
 
 Hi Susan
@@ -39,9 +39,9 @@ Start meowing
 
 Eat cat food
 
-Some cats like to hang out in trash cans. Some cats do not. 	Some cats are attracted to similar tones. 	So one day your tears may smell like cat food, attracting more cats.
-[  ](https://localhost/about)  	 [  ](https://localhost/about)  	 [  ](https://localhost/about)
-[Cats are great.](https://github.com/soundasleep/html2text_ruby)  	 [Find more cats.](https://github.com/soundasleep/html2text_ruby)  	 [Do more things.](https://github.com/soundasleep/html2text_ruby)
+Some cats like to hang out in trash cans. Some cats do not.	Some cats are attracted to similar tones.	So one day your tears may smell like cat food, attracting more cats.
+[  ](https://localhost/about)	[  ](https://localhost/about)	[  ](https://localhost/about)
+[Cats are great.](https://github.com/soundasleep/html2text_ruby)	[Find more cats.](https://github.com/soundasleep/html2text_ruby)	[Do more things.](https://github.com/soundasleep/html2text_ruby)
 
 [Contact us](http://localhost/contact)
 

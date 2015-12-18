@@ -30,7 +30,7 @@ class Html2Text
   end
 
   def remove_leading_and_trailing_whitespace(text)
-    text.gsub(/[ \t]*\n[ \t]*/im, "\n")
+    text.gsub(/[ \t]*\n[ \t]*/im, "\n").gsub(/ *\t */im, "\t")
   end
 
   def remove_unnecessary_empty_lines(text)
