@@ -74,6 +74,9 @@ class Html2Text
     if node.name.downcase == "a"
       output = wrap_link(node, output)
     end
+    if node.name.downcase == "img"
+      output = image_text(node)
+    end
 
     output
   end
@@ -120,6 +123,23 @@ class Html2Text
     href = node.attribute("href")
     name = node.attribute("name")
 
+    output = output.strip
+
+    # remove double [[ ]]s from linking images
+    if output[0] == "[" && output[-1] == "]"
+      output = output[1, output.length - 2]
+
+      # for linking images, the title of the <a> overrides the title of the <img>
+      if node.attribute("title")
+        output = node.attribute("title").to_s
+      end
+    end
+
+    # if there is no link text, but a title attr
+    if output.empty? && node.attribute("title")
+      output = node.attribute("title").to_s
+    end
+
     if href.nil?
       if !name.nil?
         output = "[#{output}]"
@@ -129,7 +149,11 @@ class Html2Text
 
       if href != output && href != "mailto:#{output}" &&
           href != "http://#{output}" && href != "https://#{output}"
-        output = "[#{output}](#{href})"
+        if output.empty?
+          output = href
+        else
+          output = "[#{output}](#{href})"
+        end
       end
     end
 
@@ -139,5 +163,15 @@ class Html2Text
     end
 
     output
+  end
+
+  def image_text(node)
+    if node.attribute("title")
+      "[" + node.attribute("title").to_s + "]"
+    elsif node.attribute("alt")
+      "[" + node.attribute("alt").to_s + "]"
+    else
+      ""
+    end
   end
 end
