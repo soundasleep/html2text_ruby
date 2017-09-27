@@ -19,6 +19,27 @@ describe Html2Text do
         expect(text).to eq("hello world")
       end
     end
+
+    context "input value is non-string" do
+      let(:html) { nil }
+      it '(nil)' do
+        expect(text).to eq("")
+      end
+    end
+
+    context "input value is non-string" do
+      let(:html) { 1234 }
+      it "(number)" do
+        expect(text).to eq("1234")
+      end
+    end
+
+    context "input value is non-string" do
+      let(:html) { 1234.5600 }
+      it "(float number)" do
+        expect(text).to eq("1234.56")
+      end
+    end
   end
 
   describe "#remove_leading_and_trailing_whitespace" do

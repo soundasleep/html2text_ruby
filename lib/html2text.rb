@@ -8,6 +8,7 @@ class Html2Text
   end
 
   def self.convert(html)
+    html = html.to_s
     html = fix_newlines(replace_entities(html))
     doc = Nokogiri::HTML(html)
 
