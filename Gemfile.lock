@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    html2text (0.2.0)
+    html2text (0.2.1)
       nokogiri (~> 1.6)
 
 GEM
@@ -9,9 +9,9 @@ GEM
   specs:
     colorize (0.7.7)
     diff-lcs (1.2.5)
-    mini_portile2 (2.0.0)
-    nokogiri (1.6.7)
-      mini_portile2 (~> 2.0.0.rc2)
+    mini_portile2 (2.1.0)
+    nokogiri (1.7.1)
+      mini_portile2 (~> 2.1.0)
     rake (10.4.2)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
