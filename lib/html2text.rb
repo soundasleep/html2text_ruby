@@ -142,8 +142,8 @@ class Html2Text
     end
 
     if href.nil?
-      if !name.nil?
-        output = "[#{output}]"
+      if !name.nil? && output.empty?
+        output = nil
       end
     else
       href = href.to_s
