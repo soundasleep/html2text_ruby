@@ -20,7 +20,7 @@ class Html2Text
   end
 
   def self.replace_entities(text)
-    text.gsub("&nbsp;", " ").gsub("\u00a0", " ")
+    text.gsub("&nbsp;", " ").gsub("\u00a0", " ").gsub("&zwnj;", "")
   end
 
   def convert
