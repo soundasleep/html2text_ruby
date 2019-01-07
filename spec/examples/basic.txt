@@ -10,4 +10,4 @@ within a div
 
 Another line
 Yet another line
-[A link](http://foo.com)
+A link

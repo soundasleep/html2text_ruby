@@ -37,7 +37,7 @@ A div
 Another div
 A div
 within a div
-[A link](http://foo.com)
+A link
 ```
 
 See the [original blog post](http://journals.jevon.org/users/jevon-phd/entry/19818) or the related [StackOverflow answer](http://stackoverflow.com/a/2564472/39531).

@@ -1,27 +1,27 @@
-One:
+One: [image]
 
-Two: [two]
+Two: [image]
 
-Three: [three]
+Three: [image]
 
-Four: [four]
+Four: [image]
 
 With links
 
-One: http://localhost
+One: [image]
 
-Two: [two](http://localhost)
+Two: [image]
 
-Three: [three](http://localhost)
+Three: [image]
 
-Four: [four](http://localhost)
+Four: [image]
 
 With links with titles
 
-One: [one link](http://localhost)
+One: [image]
 
-Two: [two link](http://localhost)
+Two: [image]
 
-Three: [three link](http://localhost)
+Three: [image]
 
-Four: [four link](http://localhost)
+Four: [image]
