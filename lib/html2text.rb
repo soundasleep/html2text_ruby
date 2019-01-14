@@ -3,16 +3,17 @@ require 'nokogiri'
 class Html2Text
   attr_reader :doc
 
-  def initialize(doc)
+  def initialize(doc, allowed_html_tags = [])
     @doc = doc
+    @allowed_html_tags = allowed_html_tags
   end
 
-  def self.convert(html)
+  def self.convert(html, allowed_html_tags = [])
     html = html.to_s
     html = fix_newlines(replace_entities(html))
     doc = Nokogiri::HTML(html)
 
-    Html2Text.new(doc).convert
+    Html2Text.new(doc, allowed_html_tags).convert
   end
 
   def self.fix_newlines(text)
@@ -77,6 +78,9 @@ class Html2Text
     end
     if node.name.downcase == "img"
       output = image_text(node)
+    end
+    if @allowed_html_tags.include?(node.name.downcase)
+      output = pass_through_html(node)
     end
 
     output
@@ -174,5 +178,9 @@ class Html2Text
     else
       ""
     end
+  end
+
+  def pass_through_html(node)
+    node.to_html
   end
 end
