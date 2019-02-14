@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "A Ruby component to convert HTML into a plain text format."
   s.license     = "MIT"
 
-  s.files = Dir["lib/**/*", "LICENSE.md", "README.md"]
+  s.files = Dir["lib/**/*", "LICENSE.md", "README.md", "CHANGELOG.md"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "nokogiri", "~> 1.8.5"
