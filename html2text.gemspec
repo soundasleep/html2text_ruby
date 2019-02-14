@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "html2text"
   s.version     = Html2Text::VERSION
   s.authors     = ["Jevon Wright"]
-  s.email       = ["jevon@powershop.co.nz"]
+  s.email       = ["jevon@jevon.org"]
   s.homepage    = "https://github.com/soundasleep/html2text_ruby"
   s.summary     = "Convert HTML into plain text."
   s.description = "A Ruby component to convert HTML into a plain text format."

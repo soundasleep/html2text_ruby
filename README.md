@@ -33,10 +33,12 @@ Hello, World!
 This is some e-mail content. Even though it has whitespace and newlines, the e-mail converter will handle it correctly.
 
 Even mismatched tags.
+
 A div
 Another div
 A div
 within a div
+
 [A link](http://foo.com)
 ```
 
@@ -60,16 +62,11 @@ text = Html2Text.convert(html)
 
 ## Tests
 
-See all of the test cases defined in [spec/examples/](spec/examples/). These can be run with:
-
-```
-bundle install
-rspec
-```
+See all of the test cases defined in [spec/examples/](spec/examples/). These can be run with `bundle && rspec`.
 
 ## License
 
-`html2text` is licensed under MIT.
+`html2text` is [licensed under MIT](LICENSE.md).
 
 ## Other versions
 
