@@ -27,12 +27,14 @@ class Html2Text
     output = iterate_over(doc)
     output = remove_leading_and_trailing_whitespace(output)
     output = remove_unnecessary_empty_lines(output)
-    output.strip
+    return output.strip
   end
 
   def remove_leading_and_trailing_whitespace(text)
     text.gsub(/[ \t]*\n[ \t]*/im, "\n").gsub(/ *\t */im, "\t")
   end
+
+  private
 
   def remove_unnecessary_empty_lines(text)
     text.gsub(/\n\n\n*/im, "\n\n")
@@ -56,6 +58,12 @@ class Html2Text
   end
 
   def iterate_over(node)
+    @iterate_over_cache ||= Hash.new
+
+    if @iterate_over_cache.has_key?(node.to_s)
+      return @iterate_over_cache[node.to_s]
+    end
+
     return trimmed_whitespace(node.text) if node.text?
 
     if ["style", "head", "title", "meta", "script"].include?(node.name.downcase)
@@ -79,7 +87,9 @@ class Html2Text
       output = image_text(node)
     end
 
-    output
+    @iterate_over_cache[node.to_s] = output
+
+    return output
   end
 
   def prefix_whitespace(node)

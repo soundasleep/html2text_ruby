@@ -17,7 +17,19 @@ describe Html2Text do
         end
 
         it "converts to text" do
-          expect(text).to eq(expected)
+          # Write the output if it failed, for easier comparison
+          if !text.eql?(expected)
+            File.open(filename.sub(".html", ".output"), 'w') do |fp|
+              fp.write(text)
+            end
+          end
+
+          # Quick check, don't try to generate a 500kb+ diff,
+          # which can halt the rspec for minutes+
+          expect(text.length).to eq expected.length
+
+          # More complete check
+          expect(text).to eq expected
         end
       end
     end

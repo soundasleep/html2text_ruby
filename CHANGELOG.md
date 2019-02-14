@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- HTML fragments are now cached for faster processing of massive documents (e.g. MS Office)
 - Zero-width non-joiners are now stripped [#5](https://github.com/soundasleep/html2text_ruby/pull/5)
 
 ### Fixed
