@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Zero-width non-joiners are now stripped [#5](https://github.com/soundasleep/html2text_ruby/pull/5)
 
+### Fixed
+- Update nokogiri dependency to 1.8.5
+
 ## [0.2.1] - 2017-09-27
 ### Fixed
 - Convert non-string input into strings [#3](https://github.com/soundasleep/html2text_ruby/pull/3)

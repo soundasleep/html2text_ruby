@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*", "LICENSE.md", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "nokogiri", "~> 1.6"
+  s.add_dependency "nokogiri", "~> 1.8.5"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-collection_matchers"
