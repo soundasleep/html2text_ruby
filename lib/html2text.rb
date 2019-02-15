@@ -59,7 +59,13 @@ class Html2Text
 
   def trimmed_whitespace(text)
     # Replace whitespace characters with a space (equivalent to \s)
-    text.gsub(/[\t\n\f\r ]+/im, " ")
+    # and force any text encoding into UTF-8
+    if text.valid_encoding?
+      text.gsub(/[\t\n\f\r ]+/im, " ")
+    else
+      text.force_encoding("WINDOWS-1252")
+      return trimmed_whitespace(text.encode("UTF-16be", invalid: :replace, replace: "?").encode('UTF-8'))
+    end
   end
 
   def iterate_over(node)
