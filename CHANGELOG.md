@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.3.0] - 2019-02-15
 ### Added
 - Zero-width non-joiners are now stripped [#5](https://github.com/soundasleep/html2text_ruby/pull/5)
 - Support both UTF-8 and Windows-1252 encoded files
@@ -24,5 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Convert non-string input into strings [#3](https://github.com/soundasleep/html2text_ruby/pull/3)
 
-[Unreleased]: https://github.com/soundasleep/html2text/compare/0.2.1...HEAD
+[Unreleased]: https://github.com/soundasleep/html2text/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/soundasleep/html2text/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/soundasleep/html2text/compare/0.2.1...0.2.1
