@@ -45,24 +45,8 @@ class Html2Text
     text.gsub(/[\t\n\f\r ]+/im, " ")
   end
 
-  def next_node_name(node)
-    next_node = node.next_sibling
-    while next_node != nil
-      break if next_node.element?
-      next_node = next_node.next_sibling
-    end
-
-    if next_node && next_node.element?
-      next_node.name.downcase
-    end
-  end
-
   def iterate_over(node)
-    @iterate_over_cache ||= Hash.new
-
-    if @iterate_over_cache.has_key?(node.to_s)
-      return @iterate_over_cache[node.to_s]
-    end
+    return "\n" if node.name.downcase == "br" && next_node_is_text?(node)
 
     return trimmed_whitespace(node.text) if node.text?
 
@@ -82,12 +66,9 @@ class Html2Text
 
     if node.name.downcase == "a"
       output = wrap_link(node, output)
-    end
-    if node.name.downcase == "img"
+    elsif node.name.downcase == "img"
       output = image_text(node)
     end
-
-    @iterate_over_cache[node.to_s] = output
 
     return output
   end
@@ -95,13 +76,23 @@ class Html2Text
   def prefix_whitespace(node)
     case node.name.downcase
       when "hr"
-        "---------------------------------------------------------------\n"
+        "\n---------------------------------------------------------------\n"
 
       when "h1", "h2", "h3", "h4", "h5", "h6", "ol", "ul"
+        "\n\n"
+
+      when "p"
+        "\n\n"
+
+      when "tr"
         "\n"
 
-      when "tr", "p", "div"
-        "\n"
+      when "div"
+        if node.parent.name == "div" && (node.parent.text.strip == node.text.strip)
+          ""
+        else
+          "\n"
+        end
 
       when "td", "th"
         "\t"
@@ -115,17 +106,25 @@ class Html2Text
     case node.name.downcase
       when "h1", "h2", "h3", "h4", "h5", "h6"
         # add another line
-        "\n"
+        "\n\n"
 
-      when "p", "br"
-        "\n" if next_node_name(node) != "div"
+      when "p"
+        "\n\n"
+
+      when "br"
+        if next_node_name(node) != "div" && next_node_name(node) != nil
+          "\n"
+        end
 
       when "li"
         "\n"
 
       when "div"
-        # add one line only if the next child isn't a div
-        "\n" if next_node_name(node) != "div" && next_node_name(node) != nil
+        if next_node_is_text?(node)
+          "\n"
+        elsif next_node_name(node) != "div" && next_node_name(node) != nil
+          "\n"
+        end
     end
   end
 
@@ -185,4 +184,40 @@ class Html2Text
       ""
     end
   end
+
+  def next_node_name(node)
+    next_node = node.next_sibling
+    while next_node != nil
+      break if next_node.element?
+      next_node = next_node.next_sibling
+    end
+
+    if next_node && next_node.element?
+      next_node.name.downcase
+    end
+  end
+
+  def next_node_is_text?(node)
+    return !node.next_sibling.nil? && node.next_sibling.text? && !node.next_sibling.text.strip.empty?
+  end
+
+  def previous_node_name(node)
+    previous_node = node.previous_sibling
+    while previous_node != nil
+      break if previous_node.element?
+      previous_node = previous_node.previous_sibling
+    end
+
+    if previous_node && previous_node.element?
+      previous_node.name.downcase
+    end
+  end
+
+  def previous_node_is_text?(node)
+    return !node.previous_sibling.nil? && node.previous_sibling.text? && !node.previous_sibling.text.strip.empty?
+  end
+
+  # def previous_node_is_not_text?(node)
+  #   return node.previous_sibling.nil? || !node.previous_sibling.text? || node.previous_sibling.text.strip.empty?
+  # end
 end

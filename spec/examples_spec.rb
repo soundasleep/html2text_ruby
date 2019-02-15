@@ -26,7 +26,7 @@ describe Html2Text do
 
           # Quick check, don't try to generate a 500kb+ diff,
           # which can halt the rspec for minutes+
-          expect(text.length).to eq expected.length
+          expect(text.length).to eq expected.length if text.length > 10000
 
           # More complete check
           expect(text).to eq expected

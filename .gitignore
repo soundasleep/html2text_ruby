@@ -1,2 +1,4 @@
 **/*.DS_Store
 *.gem
+spec/examples/*.output
+.byebug_history
