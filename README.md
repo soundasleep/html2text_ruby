@@ -1,4 +1,4 @@
-html2text [![Build Status](https://travis-ci.org/soundasleep/html2text_ruby.svg?branch=master)](https://travis-ci.org/soundasleep/html2text_ruby) [![Total Downloads](https://ruby-gem-downloads-badge.herokuapp.com/html2text?type=total&metric=true)]
+html2text [![Build Status](https://travis-ci.org/soundasleep/html2text_ruby.svg?branch=master)](https://travis-ci.org/soundasleep/html2text_ruby) [![Total Downloads](https://ruby-gem-downloads-badge.herokuapp.com/html2text?type=total&metric=true)](https://rubygems.org/gems/html2text/)
 ==============
 
 `html2text` is a very simple gem that uses DOM methods to convert HTML into a format similar to what would be
