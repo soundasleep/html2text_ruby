@@ -17,6 +17,11 @@ class Html2Text
         .gsub("<o:p></o:p>", "")
     end
 
+    if !html.include?("<html")
+      # Stop Nokogiri from inserting in <p> tags
+      html = "<div>#{html}</div>"
+    end
+
     html = fix_newlines(replace_entities(html))
     doc = Nokogiri::HTML(html)
 
