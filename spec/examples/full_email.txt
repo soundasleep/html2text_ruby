@@ -6,7 +6,6 @@ Hi Susan
 Here is your cat report.
 
 You have found 5 cats less than anyone else
-
 [Find more cats](http://localhost/cats)
 
 Down the road
@@ -20,6 +19,7 @@ You're currently finding about
 per day
 
 [Number of cats found]
+
 ---------------------------------------------------------------
 
 Your last cat was found two days ago.
