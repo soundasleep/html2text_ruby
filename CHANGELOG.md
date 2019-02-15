@@ -26,6 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Convert non-string input into strings [#3](https://github.com/soundasleep/html2text_ruby/pull/3)
 
-[Unreleased]: https://github.com/soundasleep/html2text/compare/0.3.0...HEAD
-[0.3.0]: https://github.com/soundasleep/html2text/compare/0.2.1...0.3.0
-[0.2.1]: https://github.com/soundasleep/html2text/compare/0.2.1...0.2.1
+[Unreleased]: https://github.com/soundasleep/html2text_ruby/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/soundasleep/html2text_ruby/compare/0.2.1...0.3.0
+[0.2.1]: https://github.com/soundasleep/html2text_ruby/compare/0.2.1...0.2.1
