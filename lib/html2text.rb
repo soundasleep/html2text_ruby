@@ -9,6 +9,14 @@ class Html2Text
 
   def self.convert(html)
     html = html.to_s
+
+    if is_office_document?(html)
+      # Emulate the CSS rendering of Office documents
+      html = html.gsub("<p class=MsoNormal>", "<br>")
+        .gsub("<o:p>&nbsp;</o:p>", "<br>")
+        .gsub("<o:p></o:p>", "")
+    end
+
     html = fix_newlines(replace_entities(html))
     doc = Nokogiri::HTML(html)
 
@@ -35,6 +43,10 @@ class Html2Text
   end
 
   private
+
+  def self.is_office_document?(text)
+    text.include?("urn:schemas-microsoft-com:office")
+  end
 
   def remove_unnecessary_empty_lines(text)
     text.gsub(/\n\n\n*/im, "\n\n")

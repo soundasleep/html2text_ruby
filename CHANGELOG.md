@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Zero-width non-joiners are now stripped [#5](https://github.com/soundasleep/html2text_ruby/pull/5)
+- MS Office (MsoNormal) documents are now rendered closer to actual render output
+  - Note this assumes that the input MS Office document has standard `MsoNormal` CSS.
+    This component is _not_ designed to try and interpret CSS within an HTML document.
+
+### Changed
+- Behaviour with multiple and nested `<p>`, `<div>` tags has been improved to be more in line with
+  actual browser render behaviour (see test suite)
 
 ### Fixed
 - Update nokogiri dependency to 1.8.5
