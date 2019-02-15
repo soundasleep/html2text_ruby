@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Zero-width non-joiners are now stripped [#5](https://github.com/soundasleep/html2text_ruby/pull/5)
 - Support both UTF-8 and Windows-1252 encoded files
+- Support converting `<pre>` blocks, including whitespace within these blocks
 - MS Office (MsoNormal) documents are now rendered closer to actual render output
   - Note this assumes that the input MS Office document has standard `MsoNormal` CSS.
     This component is _not_ designed to try and interpret CSS within an HTML document.

@@ -43,8 +43,22 @@ class Html2Text
     return output.strip
   end
 
+  DO_NOT_TOUCH_WHITESPACE = "<do-not-touch-whitespace>"
+
   def remove_leading_and_trailing_whitespace(text)
-    text.gsub(/[ \t]*\n[ \t]*/im, "\n").gsub(/ *\t */im, "\t")
+    # ignore any <pre> blocks, which we don't want to interact with
+    pre_blocks = text.split(DO_NOT_TOUCH_WHITESPACE)
+
+    output = []
+    pre_blocks.each.with_index do |block, index|
+      if index % 2 == 0
+        output << block.gsub(/[ \t]*\n[ \t]*/im, "\n").gsub(/ *\t */im, "\t")
+      else
+        output << block
+      end
+    end
+
+    output.join("")
   end
 
   private
@@ -75,6 +89,10 @@ class Html2Text
 
     if ["style", "head", "title", "meta", "script"].include?(node.name.downcase)
       return ""
+    end
+
+    if node.name.downcase == "pre"
+      return "\n#{DO_NOT_TOUCH_WHITESPACE}#{node.text}#{DO_NOT_TOUCH_WHITESPACE}"
     end
 
     output = []
