@@ -17,10 +17,11 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*", "LICENSE.md", "README.md", "CHANGELOG.md"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "nokogiri", "~> 1.8.5"
+  s.add_dependency "nokogiri", "~> 1.10.3"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-collection_matchers"
   s.add_development_dependency "colorize"
   s.add_development_dependency "rake"
+  s.add_development_dependency "bundler-audit"
 end

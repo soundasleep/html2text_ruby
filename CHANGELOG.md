@@ -5,10 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Security
+- Bumped nokogiri requirement to ~> 1.10.3, resolving [CVE-2019-11068](https://nvd.nist.gov/vuln/detail/CVE-2019-11068)
+  ([#8](https://github.com/soundasleep/html2text_ruby/issues/8))
 
 ## [0.3.0] - 2019-02-15
 ### Added
-- Zero-width non-joiners are now stripped [#5](https://github.com/soundasleep/html2text_ruby/pull/5)
+- Zero-width non-joiners are now stripped ([#5](https://github.com/soundasleep/html2text_ruby/pull/5))
 - Support both UTF-8 and Windows-1252 encoded files
 - Support converting `<pre>` blocks, including whitespace within these blocks
 - MS Office (MsoNormal) documents are now rendered closer to actual render output
@@ -24,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2017-09-27
 ### Fixed
-- Convert non-string input into strings [#3](https://github.com/soundasleep/html2text_ruby/pull/3)
+- Convert non-string input into strings ([#3](https://github.com/soundasleep/html2text_ruby/pull/3))
 
 [Unreleased]: https://github.com/soundasleep/html2text_ruby/compare/0.3.0...HEAD
 [0.3.0]: https://github.com/soundasleep/html2text_ruby/compare/0.2.1...0.3.0
