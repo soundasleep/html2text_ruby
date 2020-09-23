@@ -99,16 +99,20 @@ class Html2Text
 
     output << prefix_whitespace(node)
     output += node.children.map do |child|
-      iterate_over(child)
+      if !child.name.nil?
+        iterate_over(child)
+      end
     end
     output << suffix_whitespace(node)
 
     output = output.compact.join("") || ""
 
-    if node.name.downcase == "a"
-      output = wrap_link(node, output)
-    elsif node.name.downcase == "img"
-      output = image_text(node)
+    if !node.name.nil?
+      if node.name.downcase == "a"
+        output = wrap_link(node, output)
+      elsif node.name.downcase == "img"
+        output = image_text(node)
+      end
     end
 
     return output
