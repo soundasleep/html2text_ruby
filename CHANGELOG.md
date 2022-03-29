@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1.1] - 2022-03-29
+
+### Update
+- Update nokogiri requirement from ~> 1.10.3 to >= 1.10.3, < 1.14.0
+  ([#1](https://github.com/gendosu/html2text_ruby/pull/1))
+
 ## [0.3.1] - 2019-06-12
 ### Security
 - Bumped nokogiri requirement to ~> 1.10.3, resolving [CVE-2019-11068](https://nvd.nist.gov/vuln/detail/CVE-2019-11068)
