@@ -25,7 +25,7 @@ class Html2Text
     html = fix_newlines(replace_entities(html))
     doc = Nokogiri::HTML(html)
 
-    Html2Text.new(doc).convert
+    new(doc).convert
   end
 
   def self.fix_newlines(text)
