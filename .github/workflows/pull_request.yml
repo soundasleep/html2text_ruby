@@ -1,0 +1,54 @@
+name: Pull Request
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches: '**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+
+    - name: Create parallel test databases
+      timeout-minutes: 2
+      run: |
+        bin/rails parallel:create
+        bin/rails parallel:prepare
+
+    - name: Test
+      run: bundle exec parallel_rspec -- --fail-fast --profile -- spec
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+
+    - name: Lint
+      run: >-
+        bin/rubocop --force-exclusion
+        $(git diff --name-status origin/${{ github.base_ref }} |
+        grep -v -e '^[DUR]' | sed "s/^[a-zA-Z]*[^a-zA-Z0-9\.]*//")
