@@ -1,4 +1,16 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
+
+group :development, :test do
+  gem 'bundler-audit'
+  gem 'colorize'
+  gem 'rake'
+  gem 'rspec'
+  gem 'rspec-collection_matchers'
+  gem 'rubocop'
+  gem 'rubocop-performance'
+end
 
 # Declare your gem's dependencies in whatever.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
