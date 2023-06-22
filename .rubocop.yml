@@ -1,0 +1,26 @@
+
+require:
+  - rubocop-performance
+
+AllCops:
+  NewCops: enable
+  DisplayCopNames: true
+  SuggestExtensions: false
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.6
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/ModuleLength:
+  Max: 200.
+
+# Do not enforce documentation.
+Style/Documentation:
+  Enabled: false
+
+Style/AndOr:
+  Enabled: false

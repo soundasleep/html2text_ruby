@@ -1,4 +1,6 @@
-require "rspec"
-require "rspec/collection_matchers"
+# frozen_string_literal: true
 
-require File.join(File.dirname(__FILE__), "..", "lib", "html2text")
+require 'rspec'
+require 'rspec/collection_matchers'
+
+require File.join(File.dirname(__FILE__), '..', 'lib', 'html2text')
