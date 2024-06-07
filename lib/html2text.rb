@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 
 class Html2Text
@@ -10,7 +12,7 @@ class Html2Text
   def self.convert(html)
     html = html.to_s
 
-    if is_office_document?(html)
+    if office_document?(html)
       # Emulate the CSS rendering of Office documents
       html = html.gsub('<p class=MsoNormal>', '<br>')
                  .gsub('<o:p>&nbsp;</o:p>', '<br>')
@@ -58,14 +60,14 @@ class Html2Text
                 end
     end
 
-    output.join('')
+    output.join
+  end
+
+  private_class_method def self.office_document?(text)
+    text.include?('urn:schemas-microsoft-com:office')
   end
 
   private
-
-  def self.is_office_document?(text)
-    text.include?('urn:schemas-microsoft-com:office')
-  end
 
   def remove_unnecessary_empty_lines(text)
     text.gsub(/\n\n\n*/im, "\n\n")
@@ -99,7 +101,7 @@ class Html2Text
     end
     output << suffix_whitespace(node)
 
-    output = output.compact.join('') || ''
+    output = output.compact.join || ''
 
     unless node.name.nil?
       if node.name.downcase == 'a'
@@ -112,6 +114,7 @@ class Html2Text
     output
   end
 
+  # rubocop:disable Lint/DuplicateBranch
   def prefix_whitespace(node)
     case node.name.downcase
     when 'hr'
@@ -140,7 +143,9 @@ class Html2Text
       '- '
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 
+  # rubocop:disable Lint/DuplicateBranch
   def suffix_whitespace(node)
     case node.name.downcase
     when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
@@ -164,6 +169,7 @@ class Html2Text
       end
     end
   end
+  # rubocop:enable Lint/DuplicateBranch
 
   # links are returned in [text](link) format
   def wrap_link(node, output)
@@ -208,9 +214,9 @@ class Html2Text
 
   def image_text(node)
     if node.attribute('title')
-      '[' + node.attribute('title').to_s + ']'
+      "[#{node.attribute('title')}]"
     elsif node.attribute('alt')
-      '[' + node.attribute('alt').to_s + ']'
+      "[#{node.attribute('alt')}]"
     else
       ''
     end
@@ -224,7 +230,7 @@ class Html2Text
       next_node = next_node.next_sibling
     end
 
-    return unless next_node && next_node.element?
+    return unless next_node&.element?
 
     next_node.name.downcase
   end
@@ -241,7 +247,7 @@ class Html2Text
       previous_node = previous_node.previous_sibling
     end
 
-    return unless previous_node && previous_node.element?
+    return unless previous_node&.element?
 
     previous_node.name.downcase
   end

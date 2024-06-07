@@ -1,4 +1,6 @@
-$:.push File.expand_path('lib', __dir__)
+# frozen_string_literal: true
+
+$LOAD_PATH.push File.expand_path('lib', __dir__)
 
 # Maintain your gem's version:
 require 'html2text/version'
@@ -13,9 +15,9 @@ Gem::Specification.new do |s|
   s.summary     = 'Convert HTML into plain text.'
   s.description = 'A Ruby component to convert HTML into a plain text format.'
   s.license     = 'MIT'
+  s.required_ruby_version = '>= 3.0'
 
   s.files = Dir['lib/**/*', 'LICENSE.md', 'README.md', 'CHANGELOG.md']
-  s.test_files = Dir['spec/**/*']
 
   s.add_dependency 'nokogiri', ['>= 1.0', '< 2.0']
 
@@ -25,4 +27,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rspec-collection_matchers'
   s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop-performance'
+  s.add_development_dependency 'rubocop-rake'
+
+  s.metadata['rubygems_mfa_required'] = 'true'
 end
