@@ -31,11 +31,15 @@ class Html2Text
   end
 
   def self.fix_newlines(text)
+    # rubocop:disable Performance/StringReplacement
     text.gsub("\r\n", "\n").gsub("\r", "\n")
+    # rubocop:enable Performance/StringReplacement
   end
 
   def self.replace_entities(text)
+    # rubocop:disable Performance/StringReplacement
     text.gsub('&nbsp;', ' ').gsub("\u00a0", ' ').gsub('&zwnj;', '')
+    # rubocop:enable Performance/StringReplacement
   end
 
   def convert
