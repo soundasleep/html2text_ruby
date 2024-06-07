@@ -12,12 +12,12 @@ class Html2Text
 
     if is_office_document?(html)
       # Emulate the CSS rendering of Office documents
-      html = html.gsub("<p class=MsoNormal>", "<br>")
-        .gsub("<o:p>&nbsp;</o:p>", "<br>")
-        .gsub("<o:p></o:p>", "")
+      html = html.gsub('<p class=MsoNormal>', '<br>')
+                 .gsub('<o:p>&nbsp;</o:p>', '<br>')
+                 .gsub('<o:p></o:p>', '')
     end
 
-    if !html.include?("<html")
+    unless html.include?('<html')
       # Stop Nokogiri from inserting in <p> tags
       html = "<div>#{html}</div>"
     end
@@ -33,17 +33,17 @@ class Html2Text
   end
 
   def self.replace_entities(text)
-    text.gsub("&nbsp;", " ").gsub("\u00a0", " ").gsub("&zwnj;", "")
+    text.gsub('&nbsp;', ' ').gsub("\u00a0", ' ').gsub('&zwnj;', '')
   end
 
   def convert
     output = iterate_over(doc)
     output = remove_leading_and_trailing_whitespace(output)
     output = remove_unnecessary_empty_lines(output)
-    return output.strip
+    output.strip
   end
 
-  DO_NOT_TOUCH_WHITESPACE = "<do-not-touch-whitespace>"
+  DO_NOT_TOUCH_WHITESPACE = '<do-not-touch-whitespace>'
 
   def remove_leading_and_trailing_whitespace(text)
     # ignore any <pre> blocks, which we don't want to interact with
@@ -51,20 +51,20 @@ class Html2Text
 
     output = []
     pre_blocks.each.with_index do |block, index|
-      if index % 2 == 0
-        output << block.gsub(/[ \t]*\n[ \t]*/im, "\n").gsub(/ *\t */im, "\t")
-      else
-        output << block
-      end
+      output << if index.even?
+                  block.gsub(/[ \t]*\n[ \t]*/im, "\n").gsub(/ *\t */im, "\t")
+                else
+                  block
+                end
     end
 
-    output.join("")
+    output.join('')
   end
 
   private
 
   def self.is_office_document?(text)
-    text.include?("urn:schemas-microsoft-com:office")
+    text.include?('urn:schemas-microsoft-com:office')
   end
 
   def remove_unnecessary_empty_lines(text)
@@ -75,191 +75,179 @@ class Html2Text
     # Replace whitespace characters with a space (equivalent to \s)
     # and force any text encoding into UTF-8
     if text.valid_encoding?
-      text.gsub(/[\t\n\f\r ]+/im, " ")
+      text.gsub(/[\t\n\f\r ]+/im, ' ')
     else
-      text.force_encoding("WINDOWS-1252")
-      return trimmed_whitespace(text.encode("UTF-16be", invalid: :replace, replace: "?").encode('UTF-8'))
+      text.force_encoding('WINDOWS-1252')
+      trimmed_whitespace(text.encode('UTF-16be', invalid: :replace, replace: '?').encode('UTF-8'))
     end
   end
 
   def iterate_over(node)
-    return "\n" if node.name.downcase == "br" && next_node_is_text?(node)
+    return "\n" if node.name.downcase == 'br' && next_node_is_text?(node)
 
     return trimmed_whitespace(node.text) if node.text?
 
-    if ["style", "head", "title", "meta", "script"].include?(node.name.downcase)
-      return ""
-    end
+    return '' if %w[style head title meta script].include?(node.name.downcase)
 
-    if node.name.downcase == "pre"
-      return "\n#{DO_NOT_TOUCH_WHITESPACE}#{node.text}#{DO_NOT_TOUCH_WHITESPACE}"
-    end
+    return "\n#{DO_NOT_TOUCH_WHITESPACE}#{node.text}#{DO_NOT_TOUCH_WHITESPACE}" if node.name.downcase == 'pre'
 
     output = []
 
     output << prefix_whitespace(node)
     output += node.children.map do |child|
-      if !child.name.nil?
-        iterate_over(child)
-      end
+      iterate_over(child) unless child.name.nil?
     end
     output << suffix_whitespace(node)
 
-    output = output.compact.join("") || ""
+    output = output.compact.join('') || ''
 
-    if !node.name.nil?
-      if node.name.downcase == "a"
+    unless node.name.nil?
+      if node.name.downcase == 'a'
         output = wrap_link(node, output)
-      elsif node.name.downcase == "img"
+      elsif node.name.downcase == 'img'
         output = image_text(node)
       end
     end
 
-    return output
+    output
   end
 
   def prefix_whitespace(node)
     case node.name.downcase
-      when "hr"
-        "\n---------------------------------------------------------------\n"
+    when 'hr'
+      "\n---------------------------------------------------------------\n"
 
-      when "h1", "h2", "h3", "h4", "h5", "h6", "ol", "ul"
-        "\n\n"
+    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul'
+      "\n\n"
 
-      when "p"
-        "\n\n"
+    when 'p'
+      "\n\n"
 
-      when "tr"
+    when 'tr'
+      "\n"
+
+    when 'div'
+      if node.parent.name == 'div' && (node.parent.text.strip == node.text.strip)
+        ''
+      else
         "\n"
+      end
 
-      when "div"
-        if node.parent.name == "div" && (node.parent.text.strip == node.text.strip)
-          ""
-        else
-          "\n"
-        end
+    when 'td', 'th'
+      "\t"
 
-      when "td", "th"
-        "\t"
-
-      when "li"
-        "- "
+    when 'li'
+      '- '
     end
   end
 
   def suffix_whitespace(node)
     case node.name.downcase
-      when "h1", "h2", "h3", "h4", "h5", "h6"
-        # add another line
-        "\n\n"
+    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+      # add another line
+      "\n\n"
 
-      when "p"
-        "\n\n"
+    when 'p'
+      "\n\n"
 
-      when "br"
-        if next_node_name(node) != "div" && next_node_name(node) != nil
-          "\n"
-        end
+    when 'br'
+      "\n" if next_node_name(node) != 'div' && !next_node_name(node).nil?
 
-      when "li"
+    when 'li'
+      "\n"
+
+    when 'div'
+      if next_node_is_text?(node)
         "\n"
-
-      when "div"
-        if next_node_is_text?(node)
-          "\n"
-        elsif next_node_name(node) != "div" && next_node_name(node) != nil
-          "\n"
-        end
+      elsif next_node_name(node) != 'div' && !next_node_name(node).nil?
+        "\n"
+      end
     end
   end
 
   # links are returned in [text](link) format
   def wrap_link(node, output)
-    href = node.attribute("href")
-    name = node.attribute("name")
+    href = node.attribute('href')
+    name = node.attribute('name')
 
     output = output.strip
 
     # remove double [[ ]]s from linking images
-    if output[0] == "[" && output[-1] == "]"
+    if output[0] == '[' && output[-1] == ']'
       output = output[1, output.length - 2]
 
       # for linking images, the title of the <a> overrides the title of the <img>
-      if node.attribute("title")
-        output = node.attribute("title").to_s
-      end
+      output = node.attribute('title').to_s if node.attribute('title')
     end
 
     # if there is no link text, but a title attr
-    if output.empty? && node.attribute("title")
-      output = node.attribute("title").to_s
-    end
+    output = node.attribute('title').to_s if output.empty? && node.attribute('title')
 
     if href.nil?
-      if !name.nil?
-        output = "[#{output}]"
-      end
+      output = "[#{output}]" unless name.nil?
     else
       href = href.to_s
 
       if href != output && href != "mailto:#{output}" &&
-          href != "http://#{output}" && href != "https://#{output}"
-        if output.empty?
-          output = href
-        else
-          output = "[#{output}](#{href})"
-        end
+         href != "http://#{output}" && href != "https://#{output}"
+        output = if output.empty?
+                   href
+                 else
+                   "[#{output}](#{href})"
+                 end
       end
     end
 
     case next_node_name(node)
-      when "h1", "h2", "h3", "h4", "h5", "h6"
-        output += "\n"
+    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
+      output += "\n"
     end
 
     output
   end
 
   def image_text(node)
-    if node.attribute("title")
-      "[" + node.attribute("title").to_s + "]"
-    elsif node.attribute("alt")
-      "[" + node.attribute("alt").to_s + "]"
+    if node.attribute('title')
+      '[' + node.attribute('title').to_s + ']'
+    elsif node.attribute('alt')
+      '[' + node.attribute('alt').to_s + ']'
     else
-      ""
+      ''
     end
   end
 
   def next_node_name(node)
     next_node = node.next_sibling
-    while next_node != nil
+    until next_node.nil?
       break if next_node.element?
+
       next_node = next_node.next_sibling
     end
 
-    if next_node && next_node.element?
-      next_node.name.downcase
-    end
+    return unless next_node && next_node.element?
+
+    next_node.name.downcase
   end
 
   def next_node_is_text?(node)
-    return !node.next_sibling.nil? && node.next_sibling.text? && !node.next_sibling.text.strip.empty?
+    !node.next_sibling.nil? && node.next_sibling.text? && !node.next_sibling.text.strip.empty?
   end
 
   def previous_node_name(node)
     previous_node = node.previous_sibling
-    while previous_node != nil
+    until previous_node.nil?
       break if previous_node.element?
+
       previous_node = previous_node.previous_sibling
     end
 
-    if previous_node && previous_node.element?
-      previous_node.name.downcase
-    end
+    return unless previous_node && previous_node.element?
+
+    previous_node.name.downcase
   end
 
   def previous_node_is_text?(node)
-    return !node.previous_sibling.nil? && node.previous_sibling.text? && !node.previous_sibling.text.strip.empty?
+    !node.previous_sibling.nil? && node.previous_sibling.text? && !node.previous_sibling.text.strip.empty?
   end
 
   # def previous_node_is_not_text?(node)
