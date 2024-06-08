@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Loosen nokogiri dependency to allow for nokogiri < 2.0 ([#17](https://github.com/soundasleep/html2text_ruby/pull/17))
+- Fix `NoMethodError` when parsing nodes with no name ([#15](https://github.com/soundasleep/html2text_ruby/pull/15))
 
 ## [0.3.1] - 2019-06-12
 ### Security
