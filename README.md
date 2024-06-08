@@ -20,7 +20,7 @@ rendered by a browser - perfect for places where you need a quick text represent
   <div>Another div</div>
   <div>A div<div>within a div</div></div>
 
-  <a href="http://foo.com">A link</a>
+  <a href="https://foo.com">A link</a>
 
 </body>
 </html>
@@ -40,7 +40,7 @@ Another div
 A div
 within a div
 
-[A link](http://foo.com)
+[A link](https://foo.com)
 ```
 
 See the [original blog post](http://journals.jevon.org/users/jevon-phd/entry/19818) or the related [StackOverflow answer](http://stackoverflow.com/a/2564472/39531).
@@ -63,7 +63,7 @@ text = Html2Text.convert(html)
 
 ## Tests
 
-See all of the test cases defined in [spec/examples/](spec/examples/). These can be run with `bundle && rspec`.
+See all of the test cases defined in [spec/examples/](spec/examples/). These can be run with `bundle exec rake`.
 
 ## License
 
