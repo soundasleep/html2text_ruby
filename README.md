@@ -1,4 +1,4 @@
-html2text ![Build](https://github.com/soundasleep/html2text_ruby/actions/workflows/build.yml/badge.svg) [![Gem Version](https://badge.fury.io/rb/html2text.svg)](https://rubygems.org/gems/html2text)
+html2text ![Build](https://github.com/soundasleep/html2text_ruby/actions/workflows/build.yml/badge.svg) [![Gem Version](https://badge.fury.io/rb/html2text.svg)](https://badge.fury.io/rb/html2text)
 ---
 
 `html2text` is a very simple gem that uses DOM methods to convert HTML into a format similar to what would be
