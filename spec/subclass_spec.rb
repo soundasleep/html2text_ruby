@@ -22,6 +22,16 @@ class CustomLinkFormat < Html2Text
   end
 end
 
+class CustomListSuffix < Html2Text
+  private
+
+  def suffix_whitespace(node)
+    return ";\n" if node.name.downcase == 'li'
+
+    super
+  end
+end
+
 class SkipsBlockquotes < Html2Text
   private
 
@@ -49,6 +59,11 @@ describe 'subclassing Html2Text' do
   it 'can override wrap_link' do
     text = CustomLinkFormat.convert('<a href="http://example.com">hello</a>')
     expect(text).to eq('hello <http://example.com>')
+  end
+
+  it 'can override suffix_whitespace' do
+    text = CustomListSuffix.convert('<ul><li>one</li><li>two</li></ul>')
+    expect(text).to eq("- one;\n- two;")
   end
 
   it 'can override iterate_over' do
