@@ -5,11 +5,12 @@ require 'nokogiri'
 class Html2Text
   attr_reader :doc
 
-  def initialize(doc)
+  def initialize(doc, wrap_links: true)
     @doc = doc
+    @wrap_links = wrap_links
   end
 
-  def self.convert(html)
+  def self.convert(html, wrap_links: true)
     html = html.to_s
 
     if office_document?(html)
@@ -27,7 +28,7 @@ class Html2Text
     html = fix_newlines(replace_entities(html))
     doc = Nokogiri::HTML(html)
 
-    new(doc).convert
+    new(doc, wrap_links: wrap_links).convert
   end
 
   def self.fix_newlines(text)
@@ -162,7 +163,7 @@ class Html2Text
     end
   end
 
-  # links are returned in [text](link) format
+  # links are returned in [text](link) format, or "text: link" with wrap_links: false
   def wrap_link(node, output)
     href = node.attribute('href')
     name = node.attribute('name')
@@ -189,6 +190,8 @@ class Html2Text
          href != "http://#{output}" && href != "https://#{output}"
         output = if output.empty?
                    href
+                 elsif !@wrap_links
+                   "#{output}: #{href}"
                  else
                    "[#{output}](#{href})"
                  end
