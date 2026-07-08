@@ -50,6 +50,7 @@ class Html2Text
   end
 
   DO_NOT_TOUCH_WHITESPACE = '<do-not-touch-whitespace>'
+  IGNORED_TAGS = %w[style head title meta script].freeze
 
   def remove_leading_and_trailing_whitespace(text)
     # ignore any <pre> blocks, which we don't want to interact with
@@ -74,14 +75,14 @@ class Html2Text
   private
 
   def remove_unnecessary_empty_lines(text)
-    text.gsub(/\n\n\n*/im, "\n\n")
+    text.gsub(/\n{3,}/, "\n\n")
   end
 
   def trimmed_whitespace(text)
     # Replace whitespace characters with a space (equivalent to \s)
     # and force any text encoding into UTF-8
     if text.valid_encoding?
-      text.gsub(/[\t\n\f\r ]+/im, ' ')
+      text.gsub(/[\t\n\f\r ]+/, ' ')
     else
       text.force_encoding('WINDOWS-1252')
       trimmed_whitespace(text.encode('UTF-16be', invalid: :replace, replace: '?').encode('UTF-8'))
@@ -89,45 +90,36 @@ class Html2Text
   end
 
   def iterate_over(node)
-    return "\n" if node.name.downcase == 'br' && next_node_is_text?(node)
-
     return trimmed_whitespace(node.text) if node.text?
 
-    return '' if %w[style head title meta script].include?(node.name.downcase)
+    name = node.name&.downcase
 
-    return "\n#{DO_NOT_TOUCH_WHITESPACE}#{node.text}#{DO_NOT_TOUCH_WHITESPACE}" if node.name.downcase == 'pre'
+    return '' if name.nil? || IGNORED_TAGS.include?(name)
 
-    output = []
+    return "\n" if name == 'br' && next_node_is_text?(node)
 
-    output << prefix_whitespace(node)
-    output += node.children.map do |child|
-      iterate_over(child) unless child.name.nil?
+    return "\n#{DO_NOT_TOUCH_WHITESPACE}#{node.text}#{DO_NOT_TOUCH_WHITESPACE}" if name == 'pre'
+
+    return image_text(node) if name == 'img'
+
+    output = +''
+    output << (prefix_whitespace(node) || '')
+    node.children.each do |child|
+      output << iterate_over(child)
     end
-    output << suffix_whitespace(node)
+    output << (suffix_whitespace(node) || '')
 
-    output = output.compact.join || ''
-
-    unless node.name.nil?
-      if node.name.downcase == 'a'
-        output = wrap_link(node, output)
-      elsif node.name.downcase == 'img'
-        output = image_text(node)
-      end
-    end
+    output = wrap_link(node, output) if name == 'a'
 
     output
   end
 
-  # rubocop:disable Lint/DuplicateBranch
   def prefix_whitespace(node)
     case node.name.downcase
     when 'hr'
       "\n---------------------------------------------------------------\n"
 
-    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul'
-      "\n\n"
-
-    when 'p'
+    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'p'
       "\n\n"
 
     when 'tr'
@@ -147,20 +139,15 @@ class Html2Text
       '- '
     end
   end
-  # rubocop:enable Lint/DuplicateBranch
 
-  # rubocop:disable Lint/DuplicateBranch
   def suffix_whitespace(node)
     case node.name.downcase
-    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
-      # add another line
-      "\n\n"
-
-    when 'p'
+    when 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'
       "\n\n"
 
     when 'br'
-      "\n" if next_node_name(node) != 'div' && !next_node_name(node).nil?
+      next_name = next_node_name(node)
+      "\n" if !next_name.nil? && next_name != 'div'
 
     when 'li'
       "\n"
@@ -168,12 +155,12 @@ class Html2Text
     when 'div'
       if next_node_is_text?(node)
         "\n"
-      elsif next_node_name(node) != 'div' && !next_node_name(node).nil?
-        "\n"
+      else
+        next_name = next_node_name(node)
+        "\n" if !next_name.nil? && next_name != 'div'
       end
     end
   end
-  # rubocop:enable Lint/DuplicateBranch
 
   # links are returned in [text](link) format
   def wrap_link(node, output)
