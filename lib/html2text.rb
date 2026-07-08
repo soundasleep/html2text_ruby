@@ -50,7 +50,7 @@ class Html2Text
   end
 
   DO_NOT_TOUCH_WHITESPACE = '<do-not-touch-whitespace>'
-  IGNORED_TAGS = %w[style head title meta script].freeze
+  IGNORED_TAGS = Set.new(%w[style head title meta script]).freeze
 
   def remove_leading_and_trailing_whitespace(text)
     # ignore any <pre> blocks, which we don't want to interact with
