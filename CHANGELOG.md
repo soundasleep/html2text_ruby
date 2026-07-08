@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Require Ruby 3.3+; CI now tests Ruby 3.3, 3.4 and 4.0 ([#42](https://github.com/soundasleep/html2text_ruby/pull/42))
 - Update development dependencies (rubocop 1.88, nokogiri 1.19 in the lockfile), removing the transitive `rexml` dependency ([#42](https://github.com/soundasleep/html2text_ruby/pull/42))
+- Reduce object allocations in `iterate_over` for ~1.6x faster conversion of large documents ([#41](https://github.com/soundasleep/html2text_ruby/pull/41))
+
+### Added
+- Specs covering subclass overrides of `prefix_whitespace`, `suffix_whitespace`, `iterate_over`, `wrap_link` and `image_text`, plus unit specs for `fix_newlines` and `replace_entities` ([#41](https://github.com/soundasleep/html2text_ruby/pull/41))
 
 ## [0.4.0](https://github.com/soundasleep/html2text_ruby/compare/0.3.1...v0.4.0) - 2024-06-08
 ### Added
