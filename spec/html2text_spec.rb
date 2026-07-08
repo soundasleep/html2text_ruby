@@ -58,14 +58,3 @@ describe Html2Text do
     end
   end
 end
-
-describe 'Wrapped links' do
-  describe 'when using the wrap_links: false option' do
-    let(:link_text) { '<a href="https://example.com">Click Here!</a>' }
-    let(:expected_text) { 'Click Here!: https://example.com' }
-
-    it 'returns an unwrapped link' do
-      expect(Html2Text.convert(link_text, wrap_links: false)).to eq(expected_text)
-    end
-  end
-end

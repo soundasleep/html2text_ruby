@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/soundasleep/html2text_ruby/compare/v0.4.0...master)
+### Added
+- Add a `wrap_links:` option to `Html2Text.convert` and `Html2Text.new` (default `true`); when `false`, hyperlinks render as `text: href` instead of markdown-style `[text](href)`. Only affects `<a href>` links — images and named anchors keep their `[bracketed]` format ([#40](https://github.com/soundasleep/html2text_ruby/pull/40))
+
 ### Changed
 - Require Ruby 3.3+; CI now tests Ruby 3.3, 3.4 and 4.0 ([#42](https://github.com/soundasleep/html2text_ruby/pull/42))
 - Update development dependencies (rubocop 1.88, nokogiri 1.19 in the lockfile), removing the transitive `rexml` dependency ([#42](https://github.com/soundasleep/html2text_ruby/pull/42))

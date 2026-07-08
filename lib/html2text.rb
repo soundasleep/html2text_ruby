@@ -4,7 +4,6 @@ require 'nokogiri'
 
 class Html2Text
   attr_reader :doc
-  attr_writer :wrap_links
 
   def initialize(doc, wrap_links: true)
     @doc = doc
@@ -177,7 +176,7 @@ class Html2Text
   end
   # rubocop:enable Lint/DuplicateBranch
 
-  # links are returned in [text](link) format
+  # links are returned in [text](link) format, or "text: link" with wrap_links: false
   def wrap_link(node, output)
     href = node.attribute('href')
     name = node.attribute('name')
@@ -204,7 +203,7 @@ class Html2Text
          href != "http://#{output}" && href != "https://#{output}"
         output = if output.empty?
                    href
-                 elsif !output.empty? && !@wrap_links
+                 elsif !@wrap_links
                    "#{output}: #{href}"
                  else
                    "[#{output}](#{href})"
