@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Convert HTML into plain text.'
   s.description = 'A Ruby component to convert HTML into a plain text format.'
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 3.0'
+  s.required_ruby_version = '>= 3.3'
 
   s.files = Dir['lib/**/*', 'LICENSE.md', 'README.md', 'CHANGELOG.md']
 
