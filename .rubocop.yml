@@ -6,30 +6,26 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.3
 
-Metrics/MethodLength:
-  Max: 30
-
-Metrics/ClassLength:
-  Max: 200
-
-Metrics/ModuleLength:
-  Max: 200
-
-Metrics/BlockLength:
-  Max: 50
-
 Gemspec/DevelopmentDependencies:
   EnforcedStyle: gemspec
 
-# TODO: Enable these cops after fixing the issues
+# Metrics limits are ratcheted to the current worst case so complexity can't grow.
+# Lower them as methods are simplified.
+Metrics/AbcSize:
+  Max: 33
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Metrics/ClassLength:
+  Max: 165
+
 Metrics/CyclomaticComplexity:
-  Enabled: false
+  Max: 15
+
+Metrics/MethodLength:
+  Max: 28
 
 Metrics/PerceivedComplexity:
-  Enabled: false
-
-Metrics/AbcSize:
-  Enabled: false
-
-Style/Documentation:
-  Enabled: false
+  Max: 17

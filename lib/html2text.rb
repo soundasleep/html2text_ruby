@@ -2,6 +2,7 @@
 
 require 'nokogiri'
 
+# Converts HTML into plain text, approximating how a browser would render it.
 class Html2Text
   attr_reader :doc
 
