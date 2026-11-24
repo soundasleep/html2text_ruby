@@ -30,21 +30,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Run tests
+    - name: Run tests and RuboCop
       run: bundle exec rake
-
-  lint:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby-version: ['3.3', '3.4', '4.0']
-
-    steps:
-      - uses: actions/checkout@v7
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby-version }}
-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-      - name: Run Rubocop
-        run: bundle exec rubocop
