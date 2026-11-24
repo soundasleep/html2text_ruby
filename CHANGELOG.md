@@ -4,9 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/soundasleep/html2text_ruby/compare/v0.5.0...master)
+## [Unreleased](https://github.com/soundasleep/html2text_ruby/compare/v0.6.0...master)
+
+## [0.6.0](https://github.com/soundasleep/html2text_ruby/compare/v0.5.0...v0.6.0) - 2026-11-24
+### Added
+- Enforce 100% line and branch coverage with SimpleCov; `rake` now runs RuboCop as well as the specs ([#47](https://github.com/soundasleep/html2text_ruby/pull/47))
+
 ### Changed
-- Convert documents with many sibling `<div>`s in linear instead of quadratic time: the stripped text lengths of a nested div and its parent are compared first, so the parent's text is no longer computed for every div (e.g. 625 KB of sibling divs: 13 s → 0.2 s)
+- Convert documents with many sibling `<div>`s in linear instead of quadratic time: the stripped text lengths of a nested div and its parent are compared first, so the parent's text is no longer computed for every div (e.g. 625 KB of sibling divs: 13 s → 0.2 s) ([#45](https://github.com/soundasleep/html2text_ruby/pull/45))
+- Re-enable RuboCop's complexity cops, with limits ratcheted to the current worst case ([#48](https://github.com/soundasleep/html2text_ruby/pull/48))
+- Update development dependencies: bundler 4.1.0, bundler-audit 0.9.3, `actions/checkout` v7, and nokogiri 1.19.5 and json 2.21.2 in the lockfile ([#43](https://github.com/soundasleep/html2text_ruby/pull/43), [#44](https://github.com/soundasleep/html2text_ruby/pull/44), [#46](https://github.com/soundasleep/html2text_ruby/pull/46), [#47](https://github.com/soundasleep/html2text_ruby/pull/47))
+
+### Removed
+- Unused private helpers `previous_node_name` and `previous_node_is_text?`; subclasses calling them should copy them ([#47](https://github.com/soundasleep/html2text_ruby/pull/47))
 
 ## [0.5.0](https://github.com/soundasleep/html2text_ruby/compare/v0.4.0...v0.5.0) - 2026-07-08
 ### Added
