@@ -232,25 +232,4 @@ class Html2Text
   def next_node_is_text?(node)
     !node.next_sibling.nil? && node.next_sibling.text? && !node.next_sibling.text.strip.empty?
   end
-
-  def previous_node_name(node)
-    previous_node = node.previous_sibling
-    until previous_node.nil?
-      break if previous_node.element?
-
-      previous_node = previous_node.previous_sibling
-    end
-
-    return unless previous_node&.element?
-
-    previous_node.name.downcase
-  end
-
-  def previous_node_is_text?(node)
-    !node.previous_sibling.nil? && node.previous_sibling.text? && !node.previous_sibling.text.strip.empty?
-  end
-
-  # def previous_node_is_not_text?(node)
-  #   return node.previous_sibling.nil? || !node.previous_sibling.text? || node.previous_sibling.text.strip.empty?
-  # end
 end
