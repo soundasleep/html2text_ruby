@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'nokogiri', ['>= 1.0', '< 2.0']
 
+  s.add_development_dependency 'benchmark-ips'
   s.add_development_dependency 'bundler-audit'
   s.add_development_dependency 'colorize'
   s.add_development_dependency 'rake'
