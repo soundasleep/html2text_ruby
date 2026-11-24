@@ -128,7 +128,7 @@ class Html2Text
       "\n"
 
     when 'div'
-      if node.parent.name == 'div' && (node.parent.text.strip == node.text.strip)
+      if node.parent.name == 'div' && same_text_as_parent?(node)
         ''
       else
         "\n"
@@ -215,6 +215,22 @@ class Html2Text
     else
       ''
     end
+  end
+
+  # Comparing the lengths first avoids computing the parent's text for every
+  # child div, which made converting many sibling divs quadratic. If a
+  # sibling has text, the parent's text is longer than the div's, so the texts
+  # are only compared for at most one child per parent (and not at all when
+  # both are empty).
+  def same_text_as_parent?(node)
+    text = node.text.strip
+    length = stripped_text_length(node.parent)
+    text.length == length && (length.zero? || node.parent.text.strip == text)
+  end
+
+  def stripped_text_length(node)
+    @stripped_text_lengths ||= {}.compare_by_identity
+    @stripped_text_lengths[node] ||= node.text.strip.length
   end
 
   def next_node_name(node)

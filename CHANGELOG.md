@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/soundasleep/html2text_ruby/compare/v0.5.0...master)
+### Changed
+- Convert documents with many sibling `<div>`s in linear instead of quadratic time: the stripped text lengths of a nested div and its parent are compared first, so the parent's text is no longer computed for every div (e.g. 625 KB of sibling divs: 13 s → 0.2 s)
 
 ## [0.5.0](https://github.com/soundasleep/html2text_ruby/compare/v0.4.0...v0.5.0) - 2026-07-08
 ### Added
