@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    html2text (0.5.0)
+    html2text (0.6.0)
       nokogiri (>= 1.0, < 2.0)
 
 GEM
@@ -21,6 +21,8 @@ GEM
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     nokogiri (1.19.5-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.19.5-x64-mingw-ucrt)
       racc (~> 1.4)
     nokogiri (1.19.5-x86_64-linux-gnu)
       racc (~> 1.4)
@@ -79,6 +81,7 @@ GEM
 PLATFORMS
   arm64-darwin
   ruby
+  x64-mingw-ucrt
   x86_64-linux
 
 DEPENDENCIES
